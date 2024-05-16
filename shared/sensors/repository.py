@@ -9,6 +9,7 @@ from shared.redis_client import RedisClient
 from shared.sensors import models, schemas
 from shared.timescale import Timescale
 from shared.cassandra_client import CassandraClient
+from shared.elasticsearch_client import ElasticsearchClient
 
 
 class DataCommand():

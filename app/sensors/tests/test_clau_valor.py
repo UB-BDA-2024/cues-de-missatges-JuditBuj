@@ -11,8 +11,8 @@ client = TestClient(app)
 
 @pytest.fixture(scope="session", autouse=True)
 def clear_dbs():
-     from shared.database import engine
-     from shared.sensors import models
+     from app.database import SessionLocal, engine
+     from app.sensors import models
      models.Base.metadata.drop_all(bind=engine)
      models.Base.metadata.create_all(bind=engine)
      redis = RedisClient(host="redis")
@@ -21,10 +21,20 @@ def clear_dbs():
      mongo = MongoDBClient(host="mongodb")
      mongo.clearDb("sensors")
      mongo.close()
+     es = ElasticsearchClient(host="elasticsearch")
+     es.clearIndex("sensors")  
+     ts = Timescale()
+     ts.execute("DROP TABLE IF EXISTS sensor_data")
+     ts.close()
 
-     cassandra = CassandraClient(["cassandra"])
-     cassandra.get_session().execute("DROP KEYSPACE IF EXISTS sensor")
-     cassandra.close()
+     while True:
+        try:
+            cassandra = CassandraClient(["cassandra"])
+            cassandra.get_session().execute("DROP KEYSPACE IF EXISTS sensor")
+            cassandra.close()
+            break
+        except Exception as e:
+            time.sleep(5)
 
      
 #TODO ADD all your tests in test_*.py files:

@@ -1,5 +1,5 @@
 -- #TODO: Create new TS hypertable
-CREATE TABLE IF NOT EXISTS sensor_data (
+CREATE TABLE IF NOT EXISTS sensor_data(
     id integer NOT NULL, 
     temperature float, 
     humidity float, 

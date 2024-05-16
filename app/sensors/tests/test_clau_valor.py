@@ -60,10 +60,15 @@ def test_post_sensor_data():
 def test_get_sensor_data():
     """We can get a sensor by its id"""
     response = client.get("/sensors/1/data")
-    print(response)
     assert response.status_code == 200
-    assert response.json() == {"id": 1, "name": "Sensor Temperatura 1", "latitude": 1.0, "longitude": 1.0, "type": "Temperatura", "mac_address": "00:00:00:00:00:00", "manufacturer": "Dummy", "model": "Dummy Temp", "serie_number": "0000 0000 0000 0000", "firmware_version": "1.0", "description": "Sensor de temperatura model Dummy Temp del fabricant Dummy", "values": {"max_temperature": 4.0, "min_temperature": 1.0, "average_temperature": 2.5}}, {"id": 4, "name": "Sensor Temperatura 2", "latitude": 2.0, "longitude": 2.0, "type": "Temperatura", "mac_address": "00:00:00:00:00:03", "manufacturer": "Dummy", "model": "Dummy Temp", "serie_number": "0000 0000 0000 0000", "firmware_version": "1.0", "description": "Sensor de temperatura model Dummy Temp del fabricant Dummy", "values": {"max_temperature": 17.0, "min_temperature": 15.0, "average_temperature": 16.0}}
-
+    json = response.json()
+    print(json)
+    assert json["id"] == 1
+    assert json["name"] == "Sensor 1"
+    assert json["temperature"] == 1.0
+    assert json["humidity"] == 1.0
+    assert json["battery_level"] == 1.0
+    assert json["last_seen"] == "2020-01-01T00:00:00.000Z"
     
 def test_post_sensor_data_not_exists():
     response = client.post("/sensors/2/data", json={"temperature": 1.0, "humidity": 1.0, "battery_level": 1.0, "last_seen": "2020-01-01T00:00:00.000Z"})

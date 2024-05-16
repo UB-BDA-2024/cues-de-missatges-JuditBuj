@@ -11,8 +11,8 @@ client = TestClient(app)
 
 @pytest.fixture(scope="session", autouse=True)
 def clear_dbs():
-     from app.database import SessionLocal, engine
-     from app.sensors import models
+     from shared.database import SessionLocal, engine
+     from shared.sensors import models
      models.Base.metadata.drop_all(bind=engine)
      models.Base.metadata.create_all(bind=engine)
      redis = RedisClient(host="redis")

@@ -12,7 +12,7 @@ client = TestClient(app)
 
 @pytest.fixture(scope="session", autouse=True)
 def clear_dbs():
-     from shared.database import SessionLocal, engine
+     from shared.database import engine
      from shared.sensors import models
      models.Base.metadata.drop_all(bind=engine)
      models.Base.metadata.create_all(bind=engine)
@@ -39,14 +39,15 @@ def clear_dbs():
 
      
 #TODO ADD all your tests in test_*.py files:
-@pytest.fixture(scope="session", autouse=True)   
+
+#CREATE
+
 def create_sensor():
-     """A sensor can be properly created"""
-     response = client.post("/sensors", json={"name": "Sensor 1", "latitude": 1.0, "longitude": 1.0})
-     assert response.status_code == 200
-     json = response.json()
-     assert json["id"] == 1
-     assert json["name"] == "Sensor 1"
+    """A sensor can be properly created"""
+    response = client.post("/sensors", json={"name": "Sensor Temperatura 1", "latitude": 1.0, "longitude": 1.0, "type": "Temperatura", "mac_address": "00:00:00:00:00:00", "manufacturer": "Dummy", "model":"Dummy Temp", "serie_number": "0000 0000 0000 0000", "firmware_version": "1.0", "description": "Sensor de temperatura model Dummy Temp del fabricant Dummy"})
+    assert response.status_code == 200
+    assert response.json() == {"id": 1, "name": "Sensor Temperatura 1", "latitude": 1.0, "longitude": 1.0, "type": "Temperatura", "mac_address": "00:00:00:00:00:00", "manufacturer": "Dummy", "model":"Dummy Temp", "serie_number": "0000 0000 0000 0000", "firmware_version": "1.0", "description": "Sensor de temperatura model Dummy Temp del fabricant Dummy"}
+
 
 def test_redis_connection():
     redis_client = RedisClient(host="redis")

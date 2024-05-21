@@ -127,6 +127,7 @@ def test_create_sensor_velocitat_2():
 
 
 def test_search_sensors_temperatura():
+    time.sleep(10)
     """Sensors can be properly searched by type"""
     response = client.get('/sensors/search?query={"type":"Temperatura"}')
     assert response.status_code == 200

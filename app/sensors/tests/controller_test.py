@@ -133,13 +133,6 @@ def test_search_sensors_temperatura():
     assert response.status_code == 200
     assert response.json() == [{"id": 1, "name": "Sensor Temperatura 1", "latitude": 1.0, "longitude": 1.0, "type": "Temperatura", "mac_address": "00:00:00:00:00:00", "manufacturer": "Dummy", "model": "Dummy Temp", "serie_number": "0000 0000 0000 0000", "firmware_version": "1.0", "description": "Sensor de temperatura model Dummy Temp del fabricant Dummy"}]
 
-
-def test_search_sensors_temperatura():
-    """Sensors can be properly searched by type"""
-    response = client.get('/sensors/search?query={"type":"Temperatura"}')
-    assert response.status_code == 200
-    assert response.json() == [{"id": 1, "name": "Sensor Temperatura 1", "latitude": 1.0, "longitude": 1.0, "type": "Temperatura", "mac_address": "00:00:00:00:00:00", "manufacturer": "Dummy", "model": "Dummy Temp", "serie_number": "0000 0000 0000 0000", "firmware_version": "1.0", "description": "Sensor de temperatura model Dummy Temp del fabricant Dummy"}]
-
 def test_search_sensors_name_similar():
     """Sensors can be properly searched by name"""
     response = client.get('/sensors/search?query={"name":"Velocidad 1"}&search_type=similar')

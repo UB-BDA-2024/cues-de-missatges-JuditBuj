@@ -12,24 +12,24 @@ client = TestClient(app)
 
 @pytest.fixture(scope="session", autouse=True)
 def clear_dbs():
-     from shared.database import engine
-     from shared.sensors import models
-     models.Base.metadata.drop_all(bind=engine)
-     models.Base.metadata.create_all(bind=engine)
-     redis = RedisClient(host="redis")
-     redis.clearAll()
-     redis.close()
-     mongo = MongoDBClient(host="mongodb")
-     mongo.clearDb("sensors")
-     mongo.close()
-     es = ElasticsearchClient(host="elasticsearch")
-     es.clearIndex("sensors")  
-     ts = Timescale()
-     ts.execute("DROP TABLE IF EXISTS sensor_data")
-     ts.execute("commit")
-     ts.close()
+    from shared.database import engine
+    from shared.sensors import models
+    models.Base.metadata.drop_all(bind=engine)
+    models.Base.metadata.create_all(bind=engine)
+    redis = RedisClient(host="redis")
+    redis.clearAll()
+    redis.close()
+    mongo = MongoDBClient(host="mongodb")
+    mongo.clearDb("sensors")
+    mongo.close()
+    es = ElasticsearchClient(host="elasticsearch")
+    es.clearIndex("sensors")  
+    ts = Timescale()
+    ts.execute("DELETE FROM sensor_data")
+    ts.execute("commit")
+    ts.close()
 
-     while True:
+    while True:
         try:
             cassandra = CassandraClient(["cassandra"])
             cassandra.get_session().execute("DROP KEYSPACE IF EXISTS sensor")

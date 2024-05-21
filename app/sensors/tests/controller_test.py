@@ -154,6 +154,7 @@ def test_search_sensors_type_limit():
     assert len(response.json()) == 1
 
 def test_search_sensors_description_similar():
+    time.sleep(10)
     """Sensors can be properly searched by description"""
     response = client.get('/sensors/search?query={"description":"dummy"}&search_type=similar')
     assert response.status_code == 200

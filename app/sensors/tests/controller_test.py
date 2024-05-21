@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 import pytest
 import time
+import json
 from app.main import app
 from shared.redis_client import RedisClient
 from shared.mongodb_client import MongoDBClient
@@ -39,6 +40,15 @@ def clear_dbs():
 
      
 #TODO ADD all your tests in test_*.py files:
+#CLAU_VALOR
+
+#DOCUMENTAL
+
+#TEMPORALS
+
+#INDEXOXS EXTERNS
+
+#COLUMNARS
 
 #CREATE
 def test_create_sensor_temperatura_1():

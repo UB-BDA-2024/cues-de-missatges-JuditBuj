@@ -128,6 +128,7 @@ def test_elasticsearch_client():
     es.close()
 
 def test_search_sensors_temperatura():
+    time.sleep(10)
     """Sensors can be properly searched by type"""
     response = client.get('/sensors/search?query={"type":"Temperatura"}')
     assert response.status_code == 200

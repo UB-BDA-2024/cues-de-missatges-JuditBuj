@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import datetime
 from bson.son import SON
+import json
 
 from shared.mongodb_client import MongoDBClient
 from shared.redis_client import RedisClient
